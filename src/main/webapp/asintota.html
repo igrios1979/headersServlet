@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gráfico de la función</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<canvas id="myChart" width="400" height="400"></canvas>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        // Obtener el contexto del lienzo
+        var ctx = document.getElementById('myChart').getContext('2d');
+
+        // Valores de x para el gráfico
+        var xValues = [];
+        for (var x = 3.1; x <= 10; x += 0.1) {
+            xValues.push(x);
+        }
+
+        // Calcular los valores de y correspondientes
+        var yValues = xValues.map(function(x) {
+            return Math.log(x - 3);
+        });
+
+        // Configurar los datos del gráfico
+        var chartData = {
+            labels: xValues,
+            datasets: [{
+                label: 'ln(x-3)',
+                data: yValues,
+                fill: false,
+                borderColor: 'blue',
+                tension: 0.1
+            }]
+        };
+
+        // Configurar las opciones del gráfico
+        var chartOptions = {
+            scales: {
+                x: {
+                    type: 'linear',
+                    position: 'bottom'
+                },
+                y: {
+                    type: 'linear',
+                    position: 'left'
+                }
+            },
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Gráfico de la función f(x) = ln(x-3)'
+                }
+            },
+            interaction: {
+                intersect: false
+            }
+        };
+
+        // Crear el gráfico utilizando Chart.js
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: chartData,
+            options: chartOptions
+        });
+
+        // Dibujar la asíntota vertical
+        ctx.beginPath();
+        ctx.strokeStyle = 'red';
+        ctx.setLineDash([5, 5]);
+        ctx.moveTo(300, 0);
+        ctx.lineTo(300, 400);
+        ctx.stroke();
+    });
+</script>
+</body>
+</html>
