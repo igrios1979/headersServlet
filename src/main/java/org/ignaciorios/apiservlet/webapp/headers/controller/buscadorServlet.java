@@ -51,7 +51,7 @@ public class buscadorServlet extends HttpServlet {
           }
 
 
-      }else resp.sendError(HttpServletResponse.SC_FOUND, "lo sentimos el producto no existe");
+      }else resp.sendError(400,"Todo mal no existe ....");
 
     }
 }
